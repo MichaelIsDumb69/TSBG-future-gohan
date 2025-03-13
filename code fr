@@ -1,4 +1,4 @@
-local Players, RunService = game:GetService("Players"), game:GetService("RunService")
+local Players, RunService = game:GetService('Players'), game:GetService('RunService')
 local Player = Players.LocalPlayer
 local character = Player.Character or Player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
@@ -14,7 +14,7 @@ local moves = {
     ["Meteor Drop"] = {slot = 3, text = ""},
     ["Shattered Earth"] = {slot = 4, text = ""},
 }
--- ULTIMATES AREN'T DONE
+-- ULTIMATES ARENT AND NEVER WILL BE DONE
 local ultNames = {
     ["TEMPEST ONSLAUGHT"] = {slot = 1, text = "(death counter)"},
     ["SKY SHREDDER"] = {slot = 2, text = ""},
