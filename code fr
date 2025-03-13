@@ -1,6 +1,23 @@
-if not game:IsLoaded() then
-    game.Loaded:Wait()
-end
+task.spawn(function()
+    if not game:IsLoaded() then
+        game.Loaded:Wait()
+    end
+
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+
+    if Players then
+        print("Players Service Found:", Players)
+    else
+        warn("ERROR: Players Service is NIL")
+    end
+
+    if LocalPlayer then
+        print("Local Player Found:", LocalPlayer)
+    else
+        warn("ERROR: LocalPlayer is NIL")
+    end
+end)
 
 local Players, RunService = game:GetService("Players"), game:GetService("RunService")
 local Player = Players.LocalPlayer
