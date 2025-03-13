@@ -1,0 +1,116 @@
+local Players, RunService = game:GetService("Players"), game:GetService("RunService")
+local Player = Players.LocalPlayer
+local character = Player.Character or Player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local gui = Player:WaitForChild("PlayerGui")
+local screenGui = gui:WaitForChild("ScreenGui")
+
+character:SetAttribute("UltimateName", "Final Stand.")
+screenGui.MagicHealth.Health.Bar.Bar.ImageColor3 = Color3.fromRGB(255, 140, 0)
+
+local moves = {
+    ["One-Armed Assault"] = {slot = 1, text = ""},
+    ["Relentless Barrage"] = {slot = 2, text = ""},
+    ["Meteor Drop"] = {slot = 3, text = ""},
+    ["Shattered Earth"] = {slot = 4, text = ""},
+}
+-- ULTIMATES AREN'T DONE
+local ultNames = {
+    ["TEMPEST ONSLAUGHT"] = {slot = 1, text = "(death counter)"},
+    ["SKY SHREDDER"] = {slot = 2, text = ""},
+    ["LONE WARRIOR'S JUDGEMENT"] = {slot = 3, text = ""},
+    ["phantom retribution."] = {slot = 4, text = ""},
+}
+
+local function setToolName(movetable)
+    for name, data in pairs(movetable) do
+        local hotbarSlot = gui.Hotbar.Backpack.Hotbar:FindFirstChild(data.slot).Base
+        hotbarSlot.ToolName.Text = name
+        hotbarSlot.Reuse.Text = data.text
+        hotbarSlot.Reuse.Reuse.Text = data.text
+        hotbarSlot.Reuse.Visible = true
+    end
+end
+
+setToolName(moves)
+
+character:GetAttributeChangedSignal("Ulted"):Connect(function()
+    if not character:GetAttribute("Ulted") then
+        task.wait()
+        setToolName(moves)
+    end
+end)
+
+Player.Backpack.ChildAdded:Connect(function(tool)
+    if tool.Name == "Brutal Beatdown" then
+        task.wait()
+        setToolName(ultNames)
+    end
+end)
+
+local animationOverrides = { 
+    ["rbxassetid://14004235777"] = "14057231976", -- Move1
+    ["rbxassetid://14003607057"] = "14057231976", -- Move1 startup probably
+     -- move2 doesnt change
+    ["rbxassetid://14967219354"] = "14798608838", -- Move3
+    ["rbxassetid://14798608838"] = "14798608838", -- Move3 startup
+    ["rbxassetid://14351441234"] = "12467789963", -- Move4 miss
+    ["rbxassetid://14705929107"] = "16311141574", -- Move4 hit
+    ["rbxassetid://14004222985"] = "17325510002", -- punch1
+    ["rbxassetid://13997092940"] = "13296577783", -- punch2
+    ["rbxassetid://14001963401"] = "17889471098", -- punch3
+    ["rbxassetid://14136436157"] = "17838619895"  -- punch4
+}
+
+local blockedAnimations = {}
+for anim in pairs(animationOverrides) do
+    blockedAnimations[anim] = true
+end
+
+local function replaceAnimation(animationTrack)
+    local newAnimId = animationOverrides[animationTrack.Animation.AnimationId]
+    if newAnimId then
+        local anim = Instance.new("Animation")
+        anim.AnimationId = "rbxassetid://" .. newAnimId
+        local loadedAnim = humanoid:LoadAnimation(anim)
+        loadedAnim.Priority = Enum.AnimationPriority.Action2
+        loadedAnim:Play()
+    end
+end
+
+local function stopBlockedAnimations(humanoid)
+    for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
+        if blockedAnimations[track.Animation and track.Animation.AnimationId] then
+            track:Stop()
+        end
+    end
+end
+
+local function onCharacterAdded(character)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        getgenv().animationHook = humanoid.AnimationPlayed:Connect(replaceAnimation)
+        local connection; connection = RunService.Heartbeat:Connect(function()
+            if character.Parent then
+                stopBlockedAnimations(humanoid)
+            else
+                connection:Disconnect()
+            end
+        end)
+    end
+end
+
+local function onPlayerAdded(player)
+    player.CharacterAdded:Connect(onCharacterAdded)
+    if player.Character then onCharacterAdded(player.Character) end
+end
+
+Players.PlayerAdded:Connect(onPlayerAdded)
+for _, player in ipairs(Players:GetPlayers()) do
+    onPlayerAdded(player)
+end
+local leftArm = character:FindFirstChild("Left Arm") or character:FindFirstChild("LeftUpperArm")
+if leftArm then
+    leftArm:Destroy()
+  end
+end)
