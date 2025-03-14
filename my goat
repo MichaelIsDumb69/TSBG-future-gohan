@@ -1,4 +1,5 @@
 task.spawn(function()
+
     if not game:IsLoaded() then
         game.Loaded:Wait()
     end
@@ -22,7 +23,7 @@ task.spawn(function()
     }
 
     local ultNames = {
-        ["Tempest Onslaught"] = {slot = 1, text = "(death counter)"},
+        ["Tempest Onslaught"] = {slot = 1, text = ""},
         ["Sky Shredder"] = {slot = 2, text = ""},
         ["Lone Warrior's Judgement"] = {slot = 3, text = ""},
         ["Phantom Retribution"] = {slot = 4, text = ""},
@@ -60,19 +61,19 @@ task.spawn(function()
     end)
 
     local animationOverrides = { 
-        ["rbxassetid://14357943487"] = "rbxassetid://17464923657", -- Idle (probable)
-        ["rbxassetid://14358000392"] = "rbxassetid://17464923657", -- Idle (backup)
-        ["rbxassetid://15957371124"] = "rbxassetid://111364629436380", -- Spawn Animation
-        ["rbxassetid://14004235777"] = "rbxassetid://14057231976", -- Move1
-        ["rbxassetid://14003607057"] = "rbxassetid://14057231976", -- Move1 Startup
-        ["rbxassetid://14967219354"] = "rbxassetid://111364629436380", -- Move3
-        ["rbxassetid://14299135500"] = "rbxassetid://14798608838", -- Move3 Startup
-        ["rbxassetid://14351441234"] = "rbxassetid://12307656616", -- Move4 Miss
-        ["rbxassetid://14705929107"] = "rbxassetid://16311141574", -- Move4 Hit
-        ["rbxassetid://14004222985"] = "rbxassetid://16515503507", -- Punch 1
-        ["rbxassetid://13997092940"] = "rbxassetid://13296577783", -- Punch 2
-        ["rbxassetid://14001963401"] = "rbxassetid://17889471098", -- Punch 3
-        ["rbxassetid://14136436157"] = "rbxassetid://17838619895"  -- Punch 4
+        ["rbxassetid://14357943487"] = "rbxassetid://17838619895",
+        ["rbxassetid://14358000392"] = "rbxassetid://17838619895",
+        ["rbxassetid://15957371124"] = "rbxassetid://111364629436380",
+        ["rbxassetid://14004235777"] = "rbxassetid://14057231976",
+        ["rbxassetid://14003607057"] = "rbxassetid://14057231976",
+        ["rbxassetid://14967219354"] = "rbxassetid://111364629436380",
+        ["rbxassetid://14299135500"] = "rbxassetid://14798608838",
+        ["rbxassetid://14351441234"] = "rbxassetid://12307656616",
+        ["rbxassetid://14705929107"] = "rbxassetid://16311141574",
+        ["rbxassetid://14004222985"] = "rbxassetid://16515503507",
+        ["rbxassetid://13997092940"] = "rbxassetid://13296577783",
+        ["rbxassetid://14001963401"] = "rbxassetid://17889471098",
+        ["rbxassetid://14136436157"] = "rbxassetid://17838619895"
     }
 
     local function replaceAnimation(humanoid, animationTrack)
@@ -102,13 +103,11 @@ task.spawn(function()
             end)
         end
 
-        -- Destroy left arm
         local leftArm = character:FindFirstChild("Left Arm") or character:FindFirstChild("LeftUpperArm")
         if leftArm then
             leftArm:Destroy()
         end
 
-        -- Destroy #BATWEAPON
         local batWeaponPath = game.Workspace:FindFirstChild("Live")
         if batWeaponPath then
             local playerModel = batWeaponPath:FindFirstChild(Player.Name)
