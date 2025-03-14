@@ -6,7 +6,7 @@ local gui = Player:WaitForChild("PlayerGui")
 local screenGui = gui:WaitForChild("ScreenGui")
 
 local character = Player.Character or Player.CharacterAdded:Wait()
-character:SetAttribute("UltimateName", "Final Stand.")
+character:SetAttribute("UltimateName", "Earth's Strongest")
 screenGui.MagicHealth.Health.Bar.Bar.ImageColor3 = Color3.fromRGB(255, 140, 0)
 
 local moves = {
@@ -17,10 +17,10 @@ local moves = {
 }
 
 local ultNames = {
-    ["TEMPEST ONSLAUGHT"] = {slot = 1, text = "(death counter)"},
-    ["SKY SHREDDER"] = {slot = 2, text = ""},
-    ["LONE WARRIOR'S JUDGEMENT"] = {slot = 3, text = ""},
-    ["phantom retribution."] = {slot = 4, text = ""},
+    ["Tempest Onslaught"] = {slot = 1, text = "(death counter)"},
+    ["Sky Shredder"] = {slot = 2, text = ""},
+    ["Lone Warrior's Judgement"] = {slot = 3, text = ""},
+    ["Phantom Retribution"] = {slot = 4, text = ""},
 }
 
 local function setToolName(movetable)
@@ -60,7 +60,7 @@ local animationOverrides = {
     ["rbxassetid://15957371124"] = "rbxassetid://111364629436380", spawn anim
     ["rbxassetid://14004235777"] = "rbxassetid://14057231976", -- Move1
     ["rbxassetid://14003607057"] = "rbxassetid://14057231976", -- Move1 Startup
-    ["rbxassetid://14967219354"] = "rbxassetid://", -- Move3
+    ["rbxassetid://14967219354"] = "rbxassetid://111364629436380", -- Move3
     ["rbxassetid://14299135500"] = "rbxassetid://14798608838", -- Move3 Startup
     ["rbxassetid://14351441234"] = "rbxassetid://12307656616", -- Move4 Miss
     ["rbxassetid://14705929107"] = "rbxassetid://16311141574", -- Move4 Hit
