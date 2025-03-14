@@ -68,12 +68,12 @@ task.spawn(function()
         ["rbxassetid://14003607057"] = "rbxassetid://14057231976",
         ["rbxassetid://14967219354"] = "rbxassetid://111364629436380",
         ["rbxassetid://14299135500"] = "rbxassetid://14798608838",
-        ["rbxassetid://14351441234"] = "rbxassetid://12307656616",
+        ["rbxassetid://14351441234"] = "rbxassetid://12509505723",
         ["rbxassetid://14705929107"] = "rbxassetid://16311141574",
         ["rbxassetid://14004222985"] = "rbxassetid://123005629431309",
         ["rbxassetid://13997092940"] = "rbxassetid://13378708199",
-        ["rbxassetid://14001963401"] = "rbxassetid://12509505723",
-        ["rbxassetid://14136436157"] = "rbxassetid://15162694192"
+        ["rbxassetid://14001963401"] = "rbxassetid://13378751717",
+        ["rbxassetid://14136436157"] = "rbxassetid://16139108718"
     }
 
     local function replaceAnimation(humanoid, animationTrack)
