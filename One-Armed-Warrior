@@ -61,8 +61,8 @@ task.spawn(function()
     end)
 
     local animationOverrides = { 
-        ["rbxassetid://14357943487"] = "rbxassetid://17838619895",
-        ["rbxassetid://14358000392"] = "rbxassetid://17838619895",
+        ["rbxassetid://14357943487"] = "rbxassetid://17464923657",
+        ["rbxassetid://14358000392"] = "rbxassetid://17464923657",
         ["rbxassetid://15957371124"] = "rbxassetid://111364629436380",
         ["rbxassetid://14004235777"] = "rbxassetid://14057231976",
         ["rbxassetid://14003607057"] = "rbxassetid://14057231976",
