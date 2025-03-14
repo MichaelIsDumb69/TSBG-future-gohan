@@ -1,114 +1,133 @@
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
+task.spawn(function()
+    if not game:IsLoaded() then
+        game.Loaded:Wait()
+    end
 
-local Player = Players.LocalPlayer
-local gui = Player:WaitForChild("PlayerGui")
-local screenGui = gui:WaitForChild("ScreenGui")
+    local Players = game:GetService("Players")
+    local RunService = game:GetService("RunService")
 
-local character = Player.Character or Player.CharacterAdded:Wait()
-character:SetAttribute("UltimateName", "Earth's Strongest")
-screenGui.MagicHealth.Health.Bar.Bar.ImageColor3 = Color3.fromRGB(255, 140, 0)
+    local Player = Players.LocalPlayer
+    local gui = Player:WaitForChild("PlayerGui")
+    local screenGui = gui:WaitForChild("ScreenGui")
 
-local moves = {
-    ["One-Armed Assault"] = {slot = 1, text = ""},
-    ["Relentless Barrage"] = {slot = 2, text = ""},
-    ["Meteor Drop"] = {slot = 3, text = ""},
-    ["Shattered Earth"] = {slot = 4, text = ""},
-}
+    local character = Player.Character or Player.CharacterAdded:Wait()
+    character:SetAttribute("UltimateName", "Earth's Strongest")
+    screenGui.MagicHealth.Health.Bar.Bar.ImageColor3 = Color3.fromRGB(255, 140, 0)
 
-local ultNames = {
-    ["Tempest Onslaught"] = {slot = 1, text = "(death counter)"},
-    ["Sky Shredder"] = {slot = 2, text = ""},
-    ["Lone Warrior's Judgement"] = {slot = 3, text = ""},
-    ["Phantom Retribution"] = {slot = 4, text = ""},
-}
+    local moves = {
+        ["One-Armed Assault"] = {slot = 1, text = ""},
+        ["Relentless Barrage"] = {slot = 2, text = ""},
+        ["Meteor Drop"] = {slot = 3, text = ""},
+        ["Shattered Earth"] = {slot = 4, text = ""},
+    }
 
-local function setToolName(movetable)
-    for name, data in pairs(movetable) do
-        local hotbarSlot = gui.Hotbar.Backpack.Hotbar:FindFirstChild(tostring(data.slot))
-        if hotbarSlot then
-            local base = hotbarSlot:FindFirstChild("Base")
-            if base then
-                base.ToolName.Text = name
-                base.Reuse.Text = data.text
-                base.Reuse.Reuse.Text = data.text
-                base.Reuse.Visible = true
+    local ultNames = {
+        ["Tempest Onslaught"] = {slot = 1, text = "(death counter)"},
+        ["Sky Shredder"] = {slot = 2, text = ""},
+        ["Lone Warrior's Judgement"] = {slot = 3, text = ""},
+        ["Phantom Retribution"] = {slot = 4, text = ""},
+    }
+
+    local function setToolName(movetable)
+        for name, data in pairs(movetable) do
+            local hotbarSlot = gui.Hotbar.Backpack.Hotbar:FindFirstChild(tostring(data.slot))
+            if hotbarSlot then
+                local base = hotbarSlot:FindFirstChild("Base")
+                if base then
+                    base.ToolName.Text = name
+                    base.Reuse.Text = data.text
+                    base.Reuse.Reuse.Text = data.text
+                    base.Reuse.Visible = true
+                end
             end
         end
     end
-end
 
-setToolName(moves)
+    setToolName(moves)
 
-character:GetAttributeChangedSignal("Ulted"):Connect(function()
-    if not character:GetAttribute("Ulted") then
-        task.wait()
-        setToolName(moves)
-    end
-end)
+    character:GetAttributeChangedSignal("Ulted"):Connect(function()
+        if not character:GetAttribute("Ulted") then
+            task.wait()
+            setToolName(moves)
+        end
+    end)
 
-Player.Backpack.ChildAdded:Connect(function(tool)
-    if tool.Name == "Brutal Beatdown" then
-        task.wait()
-        setToolName(ultNames)
-    end
-end)
+    Player.Backpack.ChildAdded:Connect(function(tool)
+        if tool.Name == "Brutal Beatdown" then
+            task.wait()
+            setToolName(ultNames)
+        end
+    end)
 
-local animationOverrides = { 
-    ["rbxassetid://14357943487"] = "rbxassetid://13716964686", -- idle (probably)
-    ["rbxassetid://14358000392"] = "rbxassetid://13716964686", -- idle (just in case)
-    ["rbxassetid://15957371124"] = "rbxassetid://111364629436380", spawn anim
-    ["rbxassetid://14004235777"] = "rbxassetid://14057231976", -- Move1
-    ["rbxassetid://14003607057"] = "rbxassetid://14057231976", -- Move1 Startup
-    ["rbxassetid://14967219354"] = "rbxassetid://111364629436380", -- Move3
-    ["rbxassetid://14299135500"] = "rbxassetid://14798608838", -- Move3 Startup
-    ["rbxassetid://14351441234"] = "rbxassetid://12307656616", -- Move4 Miss
-    ["rbxassetid://14705929107"] = "rbxassetid://16311141574", -- Move4 Hit
-    ["rbxassetid://14004222985"] = "rbxassetid://16515503507", -- Punch 1
-    ["rbxassetid://13997092940"] = "rbxassetid://13296577783", -- Punch 2
-    ["rbxassetid://14001963401"] = "rbxassetid://17889471098", -- Punch 3
-    ["rbxassetid://14136436157"] = "rbxassetid://17838619895"  -- Punch 4
-}
+    local animationOverrides = { 
+        ["rbxassetid://14357943487"] = "rbxassetid://17464923657", -- Idle (probable)
+        ["rbxassetid://14358000392"] = "rbxassetid://17464923657", -- Idle (backup)
+        ["rbxassetid://15957371124"] = "rbxassetid://111364629436380", -- Spawn Animation
+        ["rbxassetid://14004235777"] = "rbxassetid://14057231976", -- Move1
+        ["rbxassetid://14003607057"] = "rbxassetid://14057231976", -- Move1 Startup
+        ["rbxassetid://14967219354"] = "rbxassetid://111364629436380", -- Move3
+        ["rbxassetid://14299135500"] = "rbxassetid://14798608838", -- Move3 Startup
+        ["rbxassetid://14351441234"] = "rbxassetid://12307656616", -- Move4 Miss
+        ["rbxassetid://14705929107"] = "rbxassetid://16311141574", -- Move4 Hit
+        ["rbxassetid://14004222985"] = "rbxassetid://16515503507", -- Punch 1
+        ["rbxassetid://13997092940"] = "rbxassetid://13296577783", -- Punch 2
+        ["rbxassetid://14001963401"] = "rbxassetid://17889471098", -- Punch 3
+        ["rbxassetid://14136436157"] = "rbxassetid://17838619895"  -- Punch 4
+    }
 
-local function replaceAnimation(humanoid, animationTrack)
-    local originalId = animationTrack.Animation.AnimationId
-    local newAnimId = animationOverrides[originalId]
+    local function replaceAnimation(humanoid, animationTrack)
+        local originalId = animationTrack.Animation.AnimationId
+        local newAnimId = animationOverrides[originalId]
 
-    if newAnimId then
-        local animator = humanoid:FindFirstChildOfClass("Animator")
-        if animator then
-            local newAnimation = Instance.new("Animation")
-            newAnimation.AnimationId = newAnimId
-            
-            local newTrack = animator:LoadAnimation(newAnimation)
-            newTrack.Priority = Enum.AnimationPriority.Action
-            newTrack:Play()
-            
-            animationTrack:Stop()
+        if newAnimId then
+            local animator = humanoid:FindFirstChildOfClass("Animator")
+            if animator then
+                local newAnimation = Instance.new("Animation")
+                newAnimation.AnimationId = newAnimId
+                
+                local newTrack = animator:LoadAnimation(newAnimation)
+                newTrack.Priority = Enum.AnimationPriority.Action
+                newTrack:Play()
+                
+                animationTrack:Stop()
+            end
         end
     end
-end
 
-local function onCharacterAdded(character)
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
-    if humanoid then
-        getgenv().animationHook = humanoid.AnimationPlayed:Connect(function(track)
-            replaceAnimation(humanoid, track)
-        end)
+    local function onCharacterAdded(character)
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            getgenv().animationHook = humanoid.AnimationPlayed:Connect(function(track)
+                replaceAnimation(humanoid, track)
+            end)
+        end
 
+        -- Destroy left arm
         local leftArm = character:FindFirstChild("Left Arm") or character:FindFirstChild("LeftUpperArm")
         if leftArm then
             leftArm:Destroy()
         end
+
+        -- Destroy #BATWEAPON
+        local batWeaponPath = game.Workspace:FindFirstChild("Live")
+        if batWeaponPath then
+            local playerModel = batWeaponPath:FindFirstChild(Player.Name)
+            if playerModel then
+                local batWeapon = playerModel:FindFirstChild("#BATWEAPON")
+                if batWeapon then
+                    batWeapon:Destroy()
+                end
+            end
+        end
     end
-end
 
-local function onPlayerAdded(player)
-    player.CharacterAdded:Connect(onCharacterAdded)
-    if player.Character then onCharacterAdded(player.Character) end
-end
+    local function onPlayerAdded(player)
+        player.CharacterAdded:Connect(onCharacterAdded)
+        if player.Character then onCharacterAdded(player.Character) end
+    end
 
-Players.PlayerAdded:Connect(onPlayerAdded)
-for _, player in ipairs(Players:GetPlayers()) do
-    onPlayerAdded(player)
-end
+    Players.PlayerAdded:Connect(onPlayerAdded)
+    for _, player in ipairs(Players:GetPlayers()) do
+        onPlayerAdded(player)
+    end
+end)
